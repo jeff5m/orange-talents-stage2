@@ -1,0 +1,19 @@
+version: '2.4'
+
+services:
+  db:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: orangetalents
+      MYSQL_USER: jeff
+      MYSQL_PASSWORD: orangetalents
+      MYSQL_DATABASE: orange_talents
+    ports:
+    - "3306:3306"
+    volumes:
+    - orange_talents:/var/lib/mysql
+    restart: always
+
+volumes:
+  orange_talents:
