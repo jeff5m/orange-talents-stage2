@@ -4,7 +4,7 @@ import javassist.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -31,7 +31,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
-
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         String fields = fieldErrors.stream().map(FieldError::getField).collect(Collectors.joining(", "));
         String fieldsMessage = fieldErrors.stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(", "));
@@ -44,5 +43,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 fields,
                 fieldsMessage), HttpStatus.BAD_REQUEST
         );
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception exception, @Nullable Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ExceptionDetails exceptionDetails = new ExceptionDetails(
+                exception.getClass().getName(),
+                status.value(),
+                exception.getMessage(),
+                LocalDateTime.now());
+
+        return new ResponseEntity<>(exceptionDetails, headers, status);
     }
 }
