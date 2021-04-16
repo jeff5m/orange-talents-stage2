@@ -1,7 +1,7 @@
 package com.orangetalents.challenge.controller;
 
-import com.orangetalents.challenge.model.domain.User;
 import com.orangetalents.challenge.model.requests.UserPostRequestBody;
+import com.orangetalents.challenge.model.requests.UserPostResponseBody;
 import com.orangetalents.challenge.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> save(@RequestBody
+    public ResponseEntity<UserPostResponseBody> save(@RequestBody
                                      @Valid UserPostRequestBody userPostRequestBody) {
         return new ResponseEntity<>(userService.save(userPostRequestBody), HttpStatus.OK);
     }
