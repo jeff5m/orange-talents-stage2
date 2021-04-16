@@ -25,6 +25,6 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserPostResponseBody> save(@RequestBody
                                      @Valid UserPostRequestBody userPostRequestBody) {
-        return new ResponseEntity<>(userService.save(userPostRequestBody), HttpStatus.OK);
+        return new ResponseEntity<>(userService.save(userPostRequestBody), HttpStatus.CREATED);
     }
 }
