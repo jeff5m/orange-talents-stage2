@@ -3,6 +3,7 @@ package com.orangetalents.challenge.model.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @SuppressWarnings({"squid:S1133", "squid:S1123", "squid:S1186"})
@@ -18,6 +19,8 @@ public class User {
     private String cpf;
     @Column(nullable = false)
     private LocalDate birthDate;
+    @OneToMany(mappedBy = "user")
+    private List<Address> addresses;
 
     @Deprecated
     public User() {
