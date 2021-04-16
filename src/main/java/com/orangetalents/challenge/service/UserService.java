@@ -5,6 +5,7 @@ import com.orangetalents.challenge.model.domain.User;
 import com.orangetalents.challenge.model.requests.UserPostRequestBody;
 import com.orangetalents.challenge.model.requests.UserPostResponseBody;
 import com.orangetalents.challenge.repository.UserRepository;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -28,6 +29,11 @@ public class UserService {
         User userToBeSaved = userMapper.toUser(userPostRequestBody);
         User userSaved = userRepository.save(userToBeSaved);
         return userMapper.toUserPostResponseBody(userSaved);
+    }
+
+    public User findByIdOrThrowNotFoundException(Long id) throws NotFoundException {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     public Optional<User> findByEmail(String email) {
