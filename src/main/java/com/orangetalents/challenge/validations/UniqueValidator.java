@@ -15,7 +15,7 @@ public class UniqueValidator implements ConstraintValidator<Unique, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value.contains("@")) {
+        if (value != null && value.contains("@")) {
             return userService.findByEmail(value).isEmpty();
         } else {
             return userService.findByCpf(value).isEmpty();
