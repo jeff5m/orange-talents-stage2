@@ -1,11 +1,14 @@
 package com.orangetalents.challenge.exception;
 
+import javassist.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -15,6 +18,16 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionDetails> handleNotFoundException(NotFoundException notFoundException) {
+        return new ResponseEntity<>(new ExceptionDetails(
+                "Not Found Exception, the Resource could not be found",
+                HttpStatus.NOT_FOUND.value(),
+                notFoundException.getMessage(),
+                LocalDateTime.now()), HttpStatus.NOT_FOUND
+        );
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
