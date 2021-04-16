@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -27,5 +28,13 @@ public class UserService {
         User userToBeSaved = userMapper.toUser(userPostRequestBody);
         User userSaved = userRepository.save(userToBeSaved);
         return userMapper.toUserPostResponseBody(userSaved);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public Optional<User> findByCpf(String cpf) {
+        return userRepository.findByCpf(cpf);
     }
 }

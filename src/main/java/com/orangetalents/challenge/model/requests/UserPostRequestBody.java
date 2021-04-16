@@ -1,5 +1,6 @@
 package com.orangetalents.challenge.model.requests;
 
+import com.orangetalents.challenge.validations.Unique;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.*;
@@ -13,10 +14,12 @@ public class UserPostRequestBody {
     @NotBlank(message = "User must have an email")
     @Size(message = "The length of the email must be a maximum of 60 characters", max = 60)
     @Email(message = "Invalid email format")
+    @Unique(message = "There is already an registered User with this email")
     private final String email;
 
     @NotBlank(message = "User must have a cpf")
     @CPF(message = "Invalid cpf format")
+    @Unique(message = "There is already an registered User with this cpf")
     private final String cpf;
 
     @NotNull(message = "User must have a birthdate")
