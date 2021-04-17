@@ -1,16 +1,16 @@
 package com.orangetalents.challenge.controller;
 
+import com.orangetalents.challenge.model.requests.UserAddressesResponseBody;
 import com.orangetalents.challenge.model.requests.UserPostRequestBody;
 import com.orangetalents.challenge.model.requests.UserPostResponseBody;
 import com.orangetalents.challenge.service.UserService;
+import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("users")
@@ -20,6 +20,11 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping(path = "/{id}/address")
+    public ResponseEntity<List<UserAddressesResponseBody>> listUserAddresses(@PathVariable Long id) throws NotFoundException {
+        return new ResponseEntity<>(userService.findAllUserAddresses(id), HttpStatus.OK);
     }
 
     @PostMapping

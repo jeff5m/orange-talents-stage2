@@ -2,6 +2,7 @@ package com.orangetalents.challenge.service;
 
 import com.orangetalents.challenge.mapper.UserMapper;
 import com.orangetalents.challenge.model.domain.User;
+import com.orangetalents.challenge.model.requests.UserAddressesResponseBody;
 import com.orangetalents.challenge.model.requests.UserPostRequestBody;
 import com.orangetalents.challenge.model.requests.UserPostResponseBody;
 import com.orangetalents.challenge.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +24,11 @@ public class UserService {
     public UserService(UserMapper userMapper, UserRepository userRepository) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
+    }
+
+    public List<UserAddressesResponseBody> findAllUserAddresses(Long userId) throws NotFoundException {
+        User foundedUser = Optional.ofNullable(findByIdOrThrowNotFoundException(userId)).get();
+        return userMapper.toListOfUserAddressesResponseBody(foundedUser.getAddresses());
     }
 
     @Transactional
