@@ -20,7 +20,7 @@ public class Address {
     private String city;
     @Column(nullable = false)
     private String state;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 8)
     private String cep;
     @ManyToOne(optional = false)
     private User user;

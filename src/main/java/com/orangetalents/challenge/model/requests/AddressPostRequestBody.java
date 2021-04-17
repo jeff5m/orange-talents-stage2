@@ -4,12 +4,14 @@ import com.orangetalents.challenge.model.domain.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class AddressPostRequestBody {
     @NotBlank(message = "Address must have a street name")
     private final String streetName;
     @NotBlank(message = "Address must have a number")
     private final String addressNumber;
+    @NotBlank(message = "Address must have an add-on")
     private final String addOnAddress;
     @NotBlank(message = "Address must have a neighborhood")
     private final String neighborhood;
@@ -18,13 +20,14 @@ public class AddressPostRequestBody {
     @NotBlank(message = "Address must have a state")
     private final String state;
     @NotBlank(message = "Address must have a cep")
+    @Pattern(message = "Cep must contain 8 numbers", regexp = "[0-9]{8}")
     private final String cep;
     @NotNull(message = "Address must have an User")
     private final User user;
 
     public AddressPostRequestBody(@NotBlank String streetName,
-                                  String addressNumber,
-                                  String addOnAddress,
+                                  @NotBlank String addressNumber,
+                                  @NotBlank String addOnAddress,
                                   @NotBlank String neighborhood,
                                   @NotBlank String city,
                                   @NotBlank String state,
