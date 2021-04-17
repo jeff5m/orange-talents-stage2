@@ -19,6 +19,7 @@ public class UserPostRequestBody {
 
     @NotBlank(message = "User must have a cpf")
     @CPF(message = "Invalid cpf format")
+    @Pattern(message = "Cpf must contain only numbers", regexp = "([0-9]{11})")
     @Unique(message = "There is already an registered User with this cpf")
     private final String cpf;
 
