@@ -1,7 +1,9 @@
 package com.orangetalents.challenge.service;
 
 import com.orangetalents.challenge.exception.ResourceNotFoundException;
+import com.orangetalents.challenge.mapper.ListOfUserAddressesResponseBodyMapper;
 import com.orangetalents.challenge.mapper.UserMapper;
+import com.orangetalents.challenge.mapper.UserPostResponseBodyMapper;
 import com.orangetalents.challenge.model.domain.User;
 import com.orangetalents.challenge.model.requests.UserAddressesResponseBody;
 import com.orangetalents.challenge.model.requests.UserPostRequestBody;
@@ -19,23 +21,27 @@ import java.util.Optional;
 public class UserService {
 
     private final UserMapper userMapper;
+    private final UserPostResponseBodyMapper userPostResponseBodyMapper;
+    private final ListOfUserAddressesResponseBodyMapper listOfUserAddressesResponseBodyMapper;
     private final UserRepository userRepository;
 
-    public UserService(UserMapper userMapper, UserRepository userRepository) {
+    public UserService(UserMapper userMapper, UserPostResponseBodyMapper userPostResponseBodyMapper, ListOfUserAddressesResponseBodyMapper listOfUserAddressesResponseBodyMapper, UserRepository userRepository) {
         this.userMapper = userMapper;
+        this.userPostResponseBodyMapper = userPostResponseBodyMapper;
+        this.listOfUserAddressesResponseBodyMapper = listOfUserAddressesResponseBodyMapper;
         this.userRepository = userRepository;
     }
 
     public List<UserAddressesResponseBody> findAllUserAddresses(Long userId) {
         User foundedUser = findByIdOrThrowResourceNotFoundException(userId);
-        return userMapper.toListOfUserAddressesResponseBody(foundedUser.getAddresses());
+        return listOfUserAddressesResponseBodyMapper.toListOfUserAddressesResponseBody(foundedUser.getAddresses());
     }
 
     @Transactional
     public UserPostResponseBody save(@RequestBody @Valid UserPostRequestBody userPostRequestBody) {
         User userToBeSaved = userMapper.toUser(userPostRequestBody);
         User userSaved = userRepository.save(userToBeSaved);
-        return userMapper.toUserPostResponseBody(userSaved);
+        return userPostResponseBodyMapper.toUserPostResponseBody(userSaved);
     }
 
     public User findByIdOrThrowResourceNotFoundException(Long id) {
