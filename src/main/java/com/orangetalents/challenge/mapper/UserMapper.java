@@ -14,6 +14,7 @@ import java.util.List;
 public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "addresses", ignore = true)
     User toUser(UserPostRequestBody userPostRequestBody);
 
     UserPostResponseBody toUserPostResponseBody (User user);
