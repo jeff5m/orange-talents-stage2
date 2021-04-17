@@ -1,6 +1,5 @@
 package com.orangetalents.challenge.exception;
 
-import javassist.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +18,12 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ExceptionDetails> handleNotFoundException(NotFoundException notFoundException) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ExceptionDetails> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
         return new ResponseEntity<>(new ExceptionDetails(
-                "Not Found Exception, the Resource could not be found",
+                "Resource Not Found Exception, the resource could not be found",
                 HttpStatus.NOT_FOUND.value(),
-                notFoundException.getMessage(),
+                resourceNotFoundException.getMessage(),
                 LocalDateTime.now()), HttpStatus.NOT_FOUND
         );
     }

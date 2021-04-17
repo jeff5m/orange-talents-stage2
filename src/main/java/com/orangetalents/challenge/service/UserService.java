@@ -1,12 +1,12 @@
 package com.orangetalents.challenge.service;
 
+import com.orangetalents.challenge.exception.ResourceNotFoundException;
 import com.orangetalents.challenge.mapper.UserMapper;
 import com.orangetalents.challenge.model.domain.User;
 import com.orangetalents.challenge.model.requests.UserAddressesResponseBody;
 import com.orangetalents.challenge.model.requests.UserPostRequestBody;
 import com.orangetalents.challenge.model.requests.UserPostResponseBody;
 import com.orangetalents.challenge.repository.UserRepository;
-import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -26,8 +26,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<UserAddressesResponseBody> findAllUserAddresses(Long userId) throws NotFoundException {
-        User foundedUser = Optional.ofNullable(findByIdOrThrowNotFoundException(userId)).get();
+    public List<UserAddressesResponseBody> findAllUserAddresses(Long userId) {
+        User foundedUser = findByIdOrThrowResourceNotFoundException(userId);
         return userMapper.toListOfUserAddressesResponseBody(foundedUser.getAddresses());
     }
 
@@ -38,9 +38,9 @@ public class UserService {
         return userMapper.toUserPostResponseBody(userSaved);
     }
 
-    public User findByIdOrThrowNotFoundException(Long id) throws NotFoundException {
+    public User findByIdOrThrowResourceNotFoundException(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     public Optional<User> findByEmail(String email) {
