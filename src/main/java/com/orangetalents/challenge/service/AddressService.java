@@ -6,6 +6,7 @@ import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
 import com.orangetalents.challenge.model.requests.ViaCepAddress;
 import com.orangetalents.challenge.repository.AddressRepository;
 import com.orangetalents.challenge.resttemplate.ViaCepService;
+import com.orangetalents.challenge.validations.CepInfoValidation;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,8 +27,8 @@ public class AddressService {
     @Transactional
     public Long save(AddressPostRequestBody addressPostRequestBody) {
         ViaCepAddress viaCepAddress = viaCepService.getAddressByCep(addressPostRequestBody.getCep());
-        Long userId = addressPostRequestBody.getUser().getId();
-        Address addressToBeSaved = addressMapper.toAddress(viaCepAddress, userId, addressPostRequestBody.getAddressNumber());
+        CepInfoValidation.validateAddress(viaCepAddress, addressPostRequestBody);
+        Address addressToBeSaved = addressMapper.toAddress(addressPostRequestBody);
         return addressRepository.save(addressToBeSaved).getId();
     }
 }

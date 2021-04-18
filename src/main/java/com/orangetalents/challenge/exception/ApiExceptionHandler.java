@@ -28,6 +28,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+    @ExceptionHandler(CepValidationException.class)
+    public ResponseEntity<CepValidationExceptionDetails> handleCepValidationException(CepValidationException cepValidationException) {
+        return new ResponseEntity<>(new CepValidationExceptionDetails(
+                "Cep Validation Exception, Address information is not valid",
+                HttpStatus.BAD_REQUEST.value(),
+                cepValidationException.getMessage(),
+                LocalDateTime.now()), HttpStatus.BAD_REQUEST
+        );
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
