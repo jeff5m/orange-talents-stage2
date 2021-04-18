@@ -1,8 +1,6 @@
 package com.orangetalents.challenge.controller;
 
-import com.orangetalents.challenge.model.domain.Address;
 import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
-import com.orangetalents.challenge.resttemplate.ViaCepService;
 import com.orangetalents.challenge.service.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -2,6 +2,7 @@ package com.orangetalents.challenge.exception;
 
 import java.time.LocalDateTime;
 
+@SuppressWarnings("unused")
 public class ValidationExceptionDetails extends ExceptionDetails {
     private final String fields;
     private final String fieldsMessage;
