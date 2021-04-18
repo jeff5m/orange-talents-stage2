@@ -19,9 +19,9 @@ public class AddressPostRequestBody {
     private final String city;
     @NotBlank(message = "Address must have a state")
     private final String state;
-    @NotBlank(message = "Address must have a cep")
-    @Pattern(message = "Cep must contain 8 numbers", regexp = "[0-9]{8}")
-    private final String cep;
+    @NotBlank(message = "Address must have a ZIP Code")
+    @Pattern(message = "ZIP Code must contain 8 numbers", regexp = "[0-9]{8}")
+    private final String zipCode;
     @NotNull(message = "Address must have an User")
     private final User user;
 
@@ -31,7 +31,7 @@ public class AddressPostRequestBody {
                                   @NotBlank String neighborhood,
                                   @NotBlank String city,
                                   @NotBlank String state,
-                                  @NotBlank String cep,
+                                  @NotBlank String zipCode,
                                   @NotNull User user) {
         this.streetName = streetName;
         this.addressNumber = addressNumber;
@@ -39,7 +39,7 @@ public class AddressPostRequestBody {
         this.neighborhood = neighborhood;
         this.city = city;
         this.state = state;
-        this.cep = cep;
+        this.zipCode = zipCode;
         this.user = user;
     }
 
@@ -67,8 +67,8 @@ public class AddressPostRequestBody {
         return state;
     }
 
-    public String getCep() {
-        return cep;
+    public String getZipCode() {
+        return zipCode;
     }
 
     public User getUser() {
@@ -88,7 +88,7 @@ public class AddressPostRequestBody {
         if (!neighborhood.equals(that.neighborhood)) return false;
         if (!city.equals(that.city)) return false;
         if (!state.equals(that.state)) return false;
-        if (!cep.equals(that.cep)) return false;
+        if (!zipCode.equals(that.zipCode)) return false;
         return user.equals(that.user);
     }
 
@@ -100,7 +100,7 @@ public class AddressPostRequestBody {
         result = 31 * result + neighborhood.hashCode();
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
-        result = 31 * result + cep.hashCode();
+        result = 31 * result + zipCode.hashCode();
         result = 31 * result + user.hashCode();
         return result;
     }
@@ -114,7 +114,7 @@ public class AddressPostRequestBody {
                 ", neighborhood='" + neighborhood + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", cep='" + cep + '\'' +
+                ", cep='" + zipCode + '\'' +
                 ", user=" + user +
                 '}';
     }

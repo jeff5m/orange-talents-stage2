@@ -28,12 +28,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    @ExceptionHandler(CepValidationException.class)
-    public ResponseEntity<CepValidationExceptionDetails> handleCepValidationException(CepValidationException cepValidationException) {
-        return new ResponseEntity<>(new CepValidationExceptionDetails(
-                "Cep Validation Exception, Address information is not valid",
+    @ExceptionHandler(ZipCodeValidationException.class)
+    public ResponseEntity<ZipCodeValidationExceptionDetails> handleZipCodeValidationException(ZipCodeValidationException zipCodeValidationException) {
+        return new ResponseEntity<>(new ZipCodeValidationExceptionDetails(
+                "ZIP Code Validation Exception, Invalid Address Information",
                 HttpStatus.BAD_REQUEST.value(),
-                cepValidationException.getMessage(),
+                zipCodeValidationException.getMessage(),
                 LocalDateTime.now()), HttpStatus.BAD_REQUEST
         );
     }

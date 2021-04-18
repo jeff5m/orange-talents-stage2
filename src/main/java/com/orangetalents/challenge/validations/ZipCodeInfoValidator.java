@@ -1,15 +1,15 @@
 package com.orangetalents.challenge.validations;
 
-import com.orangetalents.challenge.exception.CepValidationException;
+import com.orangetalents.challenge.exception.ZipCodeValidationException;
 import com.orangetalents.challenge.exception.ResourceNotFoundException;
 import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
-import com.orangetalents.challenge.model.requests.ViaCepAddress;
+import com.orangetalents.challenge.feignclient.ViaCepAddress;
 
 import java.util.Locale;
 
-public class CepInfoValidation {
+public class ZipCodeInfoValidator {
 
-    private CepInfoValidation() {
+    private ZipCodeInfoValidator() {
     }
 
     public static void validateAddress(ViaCepAddress viaCepAddress, AddressPostRequestBody addressPostRequestBody) {
@@ -22,13 +22,13 @@ public class CepInfoValidation {
         if (viaCepAddress.getUf() == null) {
             throw new ResourceNotFoundException("The informed zipcode does not exist");
         } else if (validStreetName) {
-            throw new CepValidationException("The street name entered does not match the street name associated with this zip code");
+            throw new ZipCodeValidationException("The street name entered does not match the street name associated with this zip code");
         } else if (validNeighborhood) {
-            throw new CepValidationException("The neighborhood entered does not match the neighborhood associated with this zip code");
+            throw new ZipCodeValidationException("The neighborhood entered does not match the neighborhood associated with this zip code");
         } else if (validCity) {
-            throw new CepValidationException("The city entered does not match the city associated with this zip code");
+            throw new ZipCodeValidationException("The city entered does not match the city associated with this zip code");
         } else if (validState) {
-            throw new CepValidationException("The state entered does not match the state associated with this zip code");
+            throw new ZipCodeValidationException("The state entered does not match the state associated with this zip code");
         }
     }
 }

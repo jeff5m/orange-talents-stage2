@@ -1,5 +1,6 @@
 package com.orangetalents.challenge.model.requests;
 
+@SuppressWarnings("unused")
 public class UserAddressesResponseBody {
     private Long id;
     private String streetName;
@@ -8,9 +9,9 @@ public class UserAddressesResponseBody {
     private String neighborhood;
     private String city;
     private String state;
-    private String cep;
+    private String zipCode;
 
-    public UserAddressesResponseBody(Long id, String streetName, String addressNumber, String addOnAddress, String neighborhood, String city, String state, String cep) {
+    public UserAddressesResponseBody(Long id, String streetName, String addressNumber, String addOnAddress, String neighborhood, String city, String state, String zipCode) {
         this.id = id;
         this.streetName = streetName;
         this.addressNumber = addressNumber;
@@ -18,7 +19,7 @@ public class UserAddressesResponseBody {
         this.neighborhood = neighborhood;
         this.city = city;
         this.state = state;
-        this.cep = cep;
+        this.zipCode = zipCode;
     }
 
     public Long getId() {
@@ -77,12 +78,12 @@ public class UserAddressesResponseBody {
         this.state = state;
     }
 
-    public String getCep() {
-        return cep;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     @Override
@@ -98,7 +99,7 @@ public class UserAddressesResponseBody {
         if (!neighborhood.equals(that.neighborhood)) return false;
         if (!city.equals(that.city)) return false;
         if (!state.equals(that.state)) return false;
-        return cep.equals(that.cep);
+        return zipCode.equals(that.zipCode);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class UserAddressesResponseBody {
         result = 31 * result + neighborhood.hashCode();
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
-        result = 31 * result + cep.hashCode();
+        result = 31 * result + zipCode.hashCode();
         return result;
     }
 
@@ -122,7 +123,7 @@ public class UserAddressesResponseBody {
                 ", neighborhood='" + neighborhood + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", cep='" + cep + '\'' +
+                ", cep='" + zipCode + '\'' +
                 '}';
     }
 }

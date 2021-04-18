@@ -26,8 +26,8 @@ public class AddressService {
 
     @Transactional
     public Long save(AddressPostRequestBody addressPostRequestBody) {
-        ViaCepAddress viaCepAddress = viaCepService.getAddressByCep(addressPostRequestBody.getCep());
-        CepInfoValidation.validateAddress(viaCepAddress, addressPostRequestBody);
+        ViaCepAddress viaCepAddress = viaCepService.getAddressByZipCode(addressPostRequestBody.getZipCode());
+        ZipCodeInfoValidator.validateAddress(viaCepAddress, addressPostRequestBody);
         Address addressToBeSaved = addressMapper.toAddress(addressPostRequestBody);
         return addressRepository.save(addressToBeSaved).getId();
     }

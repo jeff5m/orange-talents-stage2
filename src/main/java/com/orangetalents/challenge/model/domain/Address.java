@@ -21,7 +21,7 @@ public class Address {
     @Column(nullable = false)
     private String state;
     @Column(nullable = false, length = 8)
-    private String cep;
+    private String zipCode;
     @ManyToOne(optional = false)
     private User user;
 
@@ -85,12 +85,12 @@ public class Address {
         this.state = state;
     }
 
-    public String getCep() {
-        return cep;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public User getUser() {
@@ -114,7 +114,7 @@ public class Address {
         if (!neighborhood.equals(address.neighborhood)) return false;
         if (!city.equals(address.city)) return false;
         if (!state.equals(address.state)) return false;
-        if (!cep.equals(address.cep)) return false;
+        if (!zipCode.equals(address.zipCode)) return false;
         return user.equals(address.user);
     }
 
@@ -126,7 +126,7 @@ public class Address {
         result = 31 * result + neighborhood.hashCode();
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
-        result = 31 * result + cep.hashCode();
+        result = 31 * result + zipCode.hashCode();
         result = 31 * result + user.hashCode();
         return result;
     }
@@ -141,7 +141,7 @@ public class Address {
                 ", neighborhood='" + neighborhood + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", cep='" + cep + '\'' +
+                ", zipCode='" + zipCode + '\'' +
                 ", user=" + user +
                 '}';
     }
