@@ -2,14 +2,14 @@ package com.orangetalents.challenge.model.requests;
 
 @SuppressWarnings("unused")
 public class UserAddressesResponseBody {
-    private Long id;
-    private String streetName;
-    private String addressNumber;
-    private String addOnAddress;
-    private String neighborhood;
-    private String city;
-    private String state;
-    private String zipCode;
+    private final Long id;
+    private final String streetName;
+    private final String addressNumber;
+    private final String addOnAddress;
+    private final String neighborhood;
+    private final String city;
+    private final String state;
+    private final String zipCode;
 
     public UserAddressesResponseBody(Long id, String streetName, String addressNumber, String addOnAddress, String neighborhood, String city, String state, String zipCode) {
         this.id = id;
@@ -26,64 +26,32 @@ public class UserAddressesResponseBody {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getStreetName() {
         return streetName;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
     }
 
     public String getAddressNumber() {
         return addressNumber;
     }
 
-    public void setAddressNumber(String addressNumber) {
-        this.addressNumber = addressNumber;
-    }
-
     public String getAddOnAddress() {
         return addOnAddress;
-    }
-
-    public void setAddOnAddress(String addOnAddress) {
-        this.addOnAddress = addOnAddress;
     }
 
     public String getNeighborhood() {
         return neighborhood;
     }
 
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public String getZipCode() {
         return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
     }
 
     @Override
