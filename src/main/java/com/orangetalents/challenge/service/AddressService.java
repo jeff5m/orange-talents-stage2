@@ -3,10 +3,10 @@ package com.orangetalents.challenge.service;
 import com.orangetalents.challenge.mapper.AddressMapper;
 import com.orangetalents.challenge.model.domain.Address;
 import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
-import com.orangetalents.challenge.model.requests.ViaCepAddress;
+import com.orangetalents.challenge.feignclient.ViaCepAddress;
 import com.orangetalents.challenge.repository.AddressRepository;
-import com.orangetalents.challenge.resttemplate.ViaCepService;
-import com.orangetalents.challenge.validations.CepInfoValidation;
+import com.orangetalents.challenge.feignclient.ViaCepService;
+import com.orangetalents.challenge.validations.ZipCodeInfoValidator;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
