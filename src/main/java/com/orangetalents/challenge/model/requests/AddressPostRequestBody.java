@@ -20,8 +20,8 @@ public class AddressPostRequestBody {
     @NotBlank(message = "Address must have a ZIP Code")
     @Pattern(message = "ZIP Code must contain 8 numbers", regexp = "[0-9]{8}")
     private final String zipCode;
-    @NotNull(message = "Address must have an User")
-    private final UserIdAddressPostResponseBody userIdAddressPostResponseBody;
+    @NotNull(message = "The address must have an user-id")
+    private final Long userId;
 
     public AddressPostRequestBody(@NotBlank String streetName,
                                   @NotBlank String addressNumber,
@@ -30,7 +30,7 @@ public class AddressPostRequestBody {
                                   @NotBlank String city,
                                   @NotBlank String state,
                                   @NotBlank String zipCode,
-                                  @NotNull UserIdAddressPostResponseBody userIdAddressPostResponseBody) {
+                                  @NotNull Long userId) {
         this.streetName = streetName;
         this.addressNumber = addressNumber;
         this.addOnAddress = addOnAddress;
@@ -38,7 +38,7 @@ public class AddressPostRequestBody {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-        this.userIdAddressPostResponseBody = userIdAddressPostResponseBody;
+        this.userId = userId;
     }
 
     public String getStreetName() {
@@ -69,8 +69,8 @@ public class AddressPostRequestBody {
         return zipCode;
     }
 
-    public UserIdAddressPostResponseBody getUserIdAddressPostResponseBody() {
-        return userIdAddressPostResponseBody;
+    public Long getUserId() {
+        return userId;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class AddressPostRequestBody {
         if (!city.equals(that.city)) return false;
         if (!state.equals(that.state)) return false;
         if (!zipCode.equals(that.zipCode)) return false;
-        return userIdAddressPostResponseBody.equals(that.userIdAddressPostResponseBody);
+        return userId.equals(that.userId);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class AddressPostRequestBody {
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
         result = 31 * result + zipCode.hashCode();
-        result = 31 * result + userIdAddressPostResponseBody.hashCode();
+        result = 31 * result + userId.hashCode();
         return result;
     }
 }
