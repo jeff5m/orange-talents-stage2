@@ -1,6 +1,7 @@
 package com.orangetalents.challenge.controller;
 
 import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
+import com.orangetalents.challenge.model.requests.AddressPostResponseBody;
 import com.orangetalents.challenge.service.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,8 @@ public class AddressController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> save(@RequestBody
-                                     @Valid AddressPostRequestBody addressPostRequestBody) {
+    public ResponseEntity<AddressPostResponseBody> save(@RequestBody
+                                                        @Valid AddressPostRequestBody addressPostRequestBody) {
         return new ResponseEntity<>(addressService.save(addressPostRequestBody), HttpStatus.CREATED);
     }
 }
