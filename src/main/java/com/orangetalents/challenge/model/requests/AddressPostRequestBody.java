@@ -1,7 +1,5 @@
 package com.orangetalents.challenge.model.requests;
 
-import com.orangetalents.challenge.model.domain.User;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -23,7 +21,7 @@ public class AddressPostRequestBody {
     @Pattern(message = "ZIP Code must contain 8 numbers", regexp = "[0-9]{8}")
     private final String zipCode;
     @NotNull(message = "Address must have an User")
-    private final User user;
+    private final UserIdAddressPostResponseBody userIdAddressPostResponseBody;
 
     public AddressPostRequestBody(@NotBlank String streetName,
                                   @NotBlank String addressNumber,
@@ -32,7 +30,7 @@ public class AddressPostRequestBody {
                                   @NotBlank String city,
                                   @NotBlank String state,
                                   @NotBlank String zipCode,
-                                  @NotNull User user) {
+                                  @NotNull UserIdAddressPostResponseBody userIdAddressPostResponseBody) {
         this.streetName = streetName;
         this.addressNumber = addressNumber;
         this.addOnAddress = addOnAddress;
@@ -40,7 +38,7 @@ public class AddressPostRequestBody {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-        this.user = user;
+        this.userIdAddressPostResponseBody = userIdAddressPostResponseBody;
     }
 
     public String getStreetName() {
@@ -71,8 +69,8 @@ public class AddressPostRequestBody {
         return zipCode;
     }
 
-    public User getUser() {
-        return user;
+    public UserIdAddressPostResponseBody getUserIdAddressPostResponseBody() {
+        return userIdAddressPostResponseBody;
     }
 
     @Override
@@ -89,7 +87,7 @@ public class AddressPostRequestBody {
         if (!city.equals(that.city)) return false;
         if (!state.equals(that.state)) return false;
         if (!zipCode.equals(that.zipCode)) return false;
-        return user.equals(that.user);
+        return userIdAddressPostResponseBody.equals(that.userIdAddressPostResponseBody);
     }
 
     @Override
@@ -101,21 +99,7 @@ public class AddressPostRequestBody {
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
         result = 31 * result + zipCode.hashCode();
-        result = 31 * result + user.hashCode();
+        result = 31 * result + userIdAddressPostResponseBody.hashCode();
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "AddressPostRequestBody{" +
-                "streetName='" + streetName + '\'' +
-                ", addressNumber='" + addressNumber + '\'' +
-                ", addOnAddress='" + addOnAddress + '\'' +
-                ", neighborhood='" + neighborhood + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", cep='" + zipCode + '\'' +
-                ", user=" + user +
-                '}';
     }
 }

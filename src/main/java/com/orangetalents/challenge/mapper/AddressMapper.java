@@ -10,6 +10,6 @@ import org.mapstruct.Mapping;
 public interface AddressMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "user", source = "user.id")
+    @Mapping(target = "user", source = "userIdAddressPostResponseBody.id")
     Address toAddress(AddressPostRequestBody addressPostRequestBody);
 }
