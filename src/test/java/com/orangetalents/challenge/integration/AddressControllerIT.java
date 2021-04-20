@@ -1,5 +1,6 @@
 package com.orangetalents.challenge.integration;
 
+import com.orangetalents.challenge.exception.ResourceNotFoundException;
 import com.orangetalents.challenge.exception.ValidationExceptionDetails;
 import com.orangetalents.challenge.exception.ZipCodeValidationExceptionDetails;
 import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
@@ -35,8 +36,8 @@ class AddressControllerIT {
     }
 
     @Test
-    @DisplayName("save save Address return status code 201 and AddressPostResponseBody when successful")
-    void save_SavesAddressAndReturnAddressPostResponseBody_WhenSuccessful() {
+    @DisplayName("save returns status code 201 and AddressPostResponseBody when successful")
+    void save_ReturnsAddressPostResponseBody_WhenSuccessful() {
         ResponseEntity<AddressPostResponseBody> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
                 "/address",
                 AddressPostRequestBodyCreator.createValidUserPostRequestBody(),
@@ -186,7 +187,7 @@ class AddressControllerIT {
     }
 
     @Test
-    @DisplayName("save returns status code 400 and ValidationExceptionDetails when AddressPostRequestBody has invalid user id")
+    @DisplayName("save returns status code 400 and ResourceValidationException when AddressPostRequestBody has invalid User id")
     void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenAddressPostRequestBodyHasInvalidUserID() {
         AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
         userPostRequestBody.setUserId(null);
@@ -205,8 +206,27 @@ class AddressControllerIT {
     }
 
     @Test
+    @DisplayName("save returns status code 400 and ResourceNotFoundException when AddressPostRequestBody User id is not found")
+    void save_ReturnsStatusCode400AndResourceNotFoundException_WhenAddressPostRequestBodyUserIdIsNotFound() {
+        AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
+        userPostRequestBody.setUserId(null);
+
+        ResponseEntity<ResourceNotFoundException> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
+                "/address",
+                userPostRequestBody,
+                ResourceNotFoundException.class);
+
+        Assertions.assertThat(addressPostResponseBodyResponseEntity).isNotNull();
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getStatusCode())
+                .isNotNull()
+                .isEqualTo(HttpStatus.BAD_REQUEST);
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody())
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
     @DisplayName("save returns status code 400 and ZipCodeValidationExceptionDetails when AddressPostRequestBody has conflict in the street name zip code info")
-    void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInTheStreetNameZipCodeInfo() {
+    void save_ReturnsStatusCode400AndZipCodeValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInTheStreetNameZipCodeInfo() {
         AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
         userPostRequestBody.setZipCode("41385125");
 
@@ -225,7 +245,7 @@ class AddressControllerIT {
 
     @Test
     @DisplayName("save returns status code 400 and ZipCodeValidationExceptionDetails when AddressPostRequestBody has conflict in neighborhood zip code info")
-    void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInTheNeighborhoodZipCodeInfo() {
+    void save_ReturnsStatusCode400AndZipCodeValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInTheNeighborhoodZipCodeInfo() {
         AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
         userPostRequestBody.setStreetName("Avenida Rondon Pacheco");
         userPostRequestBody.setZipCode("41385125");
@@ -245,7 +265,7 @@ class AddressControllerIT {
 
     @Test
     @DisplayName("save returns status code 400 and ZipCodeValidationExceptionDetails when AddressPostRequestBody has conflict in city zip code info")
-    void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInCityZipCodeInfo() {
+    void save_ReturnsStatusCode400AndZipCodeValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInCityZipCodeInfo() {
         AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
         userPostRequestBody.setStreetName("Avenida Rondon Pacheco");
         userPostRequestBody.setNeighborhood("Tibery");
@@ -266,7 +286,7 @@ class AddressControllerIT {
 
     @Test
     @DisplayName("save returns status code 400 and ZipCodeValidationExceptionDetails when AddressPostRequestBody has conflict in state zip code info")
-    void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInStateZipCodeInfo() {
+    void save_ReturnsStatusCode400AndZipCodeValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInStateZipCodeInfo() {
         AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
         userPostRequestBody.setStreetName("Avenida Rondon Pacheco");
         userPostRequestBody.setNeighborhood("Tibery");

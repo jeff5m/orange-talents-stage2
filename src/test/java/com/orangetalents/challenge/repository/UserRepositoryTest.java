@@ -35,7 +35,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("findUserById return empty optional when no user is found")
+    @DisplayName("findUserById returns empty optional when no user is found")
     void findUserById_ReturnsEmptyOptional_WhenNoUserIsFound() {
         Optional<User> possibleUser = this.userRepository.findById(1L);
 
@@ -45,7 +45,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("Save persists user when successful")
+    @DisplayName("save persists user when successful")
     void save_PersistsUser_WhenSuccessful() {
         User userToBeSaved = UserCreator.createValidUserToBeSaved();
         User userSaved = this.userRepository.save(userToBeSaved);
@@ -59,8 +59,48 @@ class UserRepositoryTest {
     }
 
     @Test
+    @DisplayName("save throws DataIntegrityViolationException when name is null")
+    void save_ThrowsDataIntegrityViolationException_WhenNameIsNull() {
+        User userToBeSaved = UserCreator.createValidUserToBeSaved();
+        userToBeSaved.setName(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.userRepository.save(userToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when email is null")
+    void save_ThrowsDataIntegrityViolationException_WhenEmailIsNull() {
+        User userToBeSaved = UserCreator.createValidUserToBeSaved();
+        userToBeSaved.setEmail(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.userRepository.save(userToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when cpf is null")
+    void save_ThrowsDataIntegrityViolationException_WhenCpfIsNull() {
+        User userToBeSaved = UserCreator.createValidUserToBeSaved();
+        userToBeSaved.setCpf(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.userRepository.save(userToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when birthDate is null")
+    void save_ThrowsDataIntegrityViolationException_WhenBirthDateIsNull() {
+        User userToBeSaved = UserCreator.createValidUserToBeSaved();
+        userToBeSaved.setBirthDate(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.userRepository.save(userToBeSaved));
+    }
+
+    @Test
     @DisplayName("findUserByEmail finds user by email when successful")
-    void findUserByEmail_ExistsUserByEmail_WhenSuccessful() {
+    void findUserByEmail_FindsUserByEmail_WhenSuccessful() {
         User userToBeSaved = UserCreator.createValidUserToBeSaved();
         User userSaved = this.userRepository.save(userToBeSaved);
         String email = userToBeSaved.getEmail();
@@ -72,7 +112,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("findUserByEmail return empty optional when no user is found")
+    @DisplayName("findUserByEmail returns empty optional when no user is found")
     void findUserByEmail_ReturnsEmptyOptional_WhenNoUserIsFound() {
         String email = "test@email.com";
 
@@ -83,7 +123,7 @@ class UserRepositoryTest {
 
     @Test
     @DisplayName("findUserByCpf finds user by cpf when successful")
-    void findUserByCpf_ExistsUserByCpf_WhenSuccessful() {
+    void findUserByCpf_FindsUserByCpf_WhenSuccessful() {
         User userToBeSaved = UserCreator.createValidUserToBeSaved();
         User userSaved = this.userRepository.save(userToBeSaved);
         String cpf = userToBeSaved.getCpf();
@@ -95,7 +135,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("findUserByCpf return empty optional when no user is found")
+    @DisplayName("findUserByCpf returns empty optional when no user is found")
     void findUserByCpf_ReturnsEmptyOptional_WhenNoUserIsFound() {
         String cpf = "00000000000";
 

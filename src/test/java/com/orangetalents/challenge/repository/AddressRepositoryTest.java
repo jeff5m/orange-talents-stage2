@@ -28,7 +28,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    @DisplayName("Save persists address when successful")
+    @DisplayName("save persists address when successful")
     void save_PersistsAddress_WhenSuccessful() {
         Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
         Address addressSaved = this.addressRepository.save(addressToBeSaved);
@@ -46,11 +46,82 @@ class AddressRepositoryTest {
     }
 
     @Test
-    @DisplayName("Save throw DataIntegrityViolationException when attributes are null")
-    void save_ThrowsDataIntegrityViolationException_WhenSuccessful() {
-        Address invalidAddressToBeSaved = AddressCreator.createInvalidAddressToBeSaved();
+    @DisplayName("save throws DataIntegrityViolationException when streetName is null")
+    void save_ThrowsDataIntegrityViolationException_WhenStreetNameIsNull() {
+        Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
+        addressToBeSaved.setStreetName(null);
 
         Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
-                .isThrownBy(() -> this.addressRepository.save(invalidAddressToBeSaved));
+                .isThrownBy(() -> this.addressRepository.save(addressToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when addressNumber is null")
+    void save_ThrowsDataIntegrityViolationException_WhenAddressNumberIsNull() {
+        Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
+        addressToBeSaved.setAddressNumber(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.addressRepository.save(addressToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when addOnAddress is null")
+    void save_ThrowsDataIntegrityViolationException_WhenAddOnAddressIsNull() {
+        Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
+        addressToBeSaved.setAddOnAddress(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.addressRepository.save(addressToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when neighborhood is null")
+    void save_ThrowsDataIntegrityViolationException_WhenNeighborhoodIsNull() {
+        Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
+        addressToBeSaved.setStreetName(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.addressRepository.save(addressToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when city is null")
+    void save_ThrowsDataIntegrityViolationException_WhenCityIsNull() {
+        Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
+        addressToBeSaved.setStreetName(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.addressRepository.save(addressToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when state is null")
+    void save_ThrowsDataIntegrityViolationException_WhenStateIsNull() {
+        Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
+        addressToBeSaved.setStreetName(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.addressRepository.save(addressToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when zip code is null")
+    void save_ThrowsDataIntegrityViolationException_WhenZipCodeIsNull() {
+        Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
+        addressToBeSaved.setStreetName(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.addressRepository.save(addressToBeSaved));
+    }
+
+    @Test
+    @DisplayName("save throws DataIntegrityViolationException when UserId is null")
+    void save_ThrowsDataIntegrityViolationException_WhenUserIdIsNull() {
+        Address addressToBeSaved = AddressCreator.createValidAddressToBeSaved();
+        addressToBeSaved.setStreetName(null);
+
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class)
+                .isThrownBy(() -> this.addressRepository.save(addressToBeSaved));
     }
 }

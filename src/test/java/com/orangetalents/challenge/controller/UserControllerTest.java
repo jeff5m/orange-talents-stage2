@@ -36,8 +36,8 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("listUserAddresses returns User data and all his addresses when successful")
-    void listUserAddresses_returnsUserDataAndAllHisAddresses_WhenSuccessful() {
+    @DisplayName("listUserAddresses returns User data and list of Addresses when successful")
+    void listUserAddresses_ReturnsUserDataAndListOfAddresses_WhenSuccessful() {
         User expectedUser = UserCreator.createValidUser();
         Address expectedAddress = AddressCreator.createValidAddress();
         UserResponseBody userResponse = userController.listUserAddresses(expectedUser.getId()).getBody();
@@ -70,8 +70,8 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("listUserAddresses returns User data and empty list when no address is found")
-    void listUserAddresses_returnsUserDataAndEmptyList_WhenNoAddressIsFound() {
+    @DisplayName("listUserAddresses returns User data and empty list of Addresses when no address is found")
+    void listUserAddresses_ReturnsUserDataAndEmptyListOfAddresses_WhenNoAddressIsFound() {
         BDDMockito.when(userServiceMock.findAllUserAddresses(ArgumentMatchers.anyLong()))
                 .thenReturn(UserResponseBodyCreator.createValidUserResponseBodyWithEmptyList());
 
@@ -89,8 +89,8 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("save save user and return UserPostResponseBody when successful")
-    void save_SavesUserAndReturnUserPostResponseBody_WhenSuccessful() {
+    @DisplayName("save returns UserPostResponseBody when successful")
+    void save_ReturnsUserPostResponseBody_WhenSuccessful() {
         UserPostRequestBody userPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
         UserPostResponseBody userPostResponseBody = this.userController.save(userPostRequestBody).getBody();
 
@@ -99,7 +99,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("listUserAddresses throw ResourceNotFoundException when no user is found")
+    @DisplayName("listUserAddresses throws ResourceNotFoundException when no user is found")
     void listUserAddresses_ThrowsResourceNotFoundException_WhenNoUserIsFound() {
         BDDMockito.given(userServiceMock.findAllUserAddresses(ArgumentMatchers.anyLong()))
                 .willThrow(new ResourceNotFoundException("User not found"));

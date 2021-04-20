@@ -41,8 +41,8 @@ class UserControllerIT {
     private AddressRepository addressRepository;
 
     @Test
-    @DisplayName("listUserAddresses returns status code 200, User data and all his addresses when successful")
-    void listUserAddresses_returnsUserDataAndAllHisAddresses_WhenSuccessful() {
+    @DisplayName("listUserAddresses returns status code 200, User data and list of Addresses when successful")
+    void listUserAddresses_ReturnsStatusCode200UserDataAndListOfAddresses_WhenSuccessful() {
         User userSaved = this.userRepository.save(UserCreator.createValidUserToBeSaved());
         Long expectedId = userSaved.getId();
         Address addressSaved = this.addressRepository.save(AddressCreator.createValidAddressToBeSaved());
@@ -88,8 +88,8 @@ class UserControllerIT {
     }
 
     @Test
-    @DisplayName("listUserAddresses returns status code 200, User data and empty list when no address is found")
-    void listUserAddresses_returnsUserDataAndEmptyList_WhenNoAddressIsFound() {
+    @DisplayName("listUserAddresses returns status code 200, User data and empty list of Addresses when no address is found")
+    void listUserAddresses_ReturnsStatusCode200UserDataAndEmptyListOfAddresses_WhenNoAddressIsFound() {
         User userSaved = this.userRepository.save(UserCreator.createValidUserToBeSaved());
         Long expectedId = userSaved.getId();
         String url = String.format("/users/%d/addresses", expectedId);
@@ -117,8 +117,8 @@ class UserControllerIT {
     }
 
     @Test
-    @DisplayName("save save User return status code 201 and UserPostResponseBody when successful")
-    void save_SavesUserAndReturnUserPostResponseBody_WhenSuccessful() {
+    @DisplayName("save returns status code 201 and UserPostResponseBody when successful")
+    void save_ReturnsStatusCode201AndUserPostResponseBody_WhenSuccessful() {
         ResponseEntity<UserPostResponseBody> userPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
                 "/users",
                 UserPostRequestBodyCreator.createValidUserPostRequestBody(),
@@ -174,10 +174,50 @@ class UserControllerIT {
     }
 
     @Test
+    @DisplayName("save returns status code 400 and ValidationExceptionDetails when UserPostRequestBody has an already registered cpf")
+    void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenUserPostRequestBodyHasAnAlreadyRegisteredCpf() {
+        String foundedCpf = this.userRepository.save(UserCreator.createValidUserToBeSaved()).getCpf();
+        UserPostRequestBody validUserPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
+        validUserPostRequestBody.setCpf(foundedCpf);
+
+        ResponseEntity<ValidationExceptionDetails> userPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
+                "/users",
+                validUserPostRequestBody,
+                ValidationExceptionDetails.class);
+
+        Assertions.assertThat(userPostResponseBodyResponseEntity).isNotNull();
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getStatusCode())
+                .isNotNull()
+                .isEqualTo(HttpStatus.BAD_REQUEST);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isInstanceOf(ValidationExceptionDetails.class);
+    }
+
+    @Test
     @DisplayName("save returns status code 400 and ValidationExceptionDetails when UserPostRequestBody has invalid email")
     void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenUserPostRequestBodyHasInvalidEmail() {
         UserPostRequestBody validUserPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
         validUserPostRequestBody.setEmail("asdf");
+
+        ResponseEntity<ValidationExceptionDetails> userPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
+                "/users",
+                validUserPostRequestBody,
+                ValidationExceptionDetails.class);
+
+        Assertions.assertThat(userPostResponseBodyResponseEntity).isNotNull();
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getStatusCode())
+                .isNotNull()
+                .isEqualTo(HttpStatus.BAD_REQUEST);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isInstanceOf(ValidationExceptionDetails.class);
+    }
+
+    @Test
+    @DisplayName("save returns status code 400 and ValidationExceptionDetails when UserPostRequestBody has an already registered email")
+    void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenUserPostRequestBodyHasAnAlreadyRegisteredEmail() {
+        String foundedEmail = this.userRepository.save(UserCreator.createValidUserToBeSaved()).getEmail();
+        UserPostRequestBody validUserPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
+        validUserPostRequestBody.setEmail(foundedEmail);
 
         ResponseEntity<ValidationExceptionDetails> userPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
                 "/users",
@@ -212,8 +252,8 @@ class UserControllerIT {
     }
 
     @Test
-    @DisplayName("listUserAddresses return status code 404 and ResourceNotFoundException when no user is found")
-    void listUserAddresses_ThrowsResourceNotFoundException_WhenNoUserIsFound() {
+    @DisplayName("listUserAddresses returns status code 404 and ResourceNotFoundException when no user is found")
+    void listUserAddresses_ReturnsStatusCode404AndResourceNotFoundException_WhenNoUserIsFound() {
         String url = String.format("/users/%d/addresses", 1L);
         ResponseEntity<ResourceNotFoundException> userResponseBodyResponseEntity = testRestTemplate.exchange(
                 url,

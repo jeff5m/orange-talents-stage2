@@ -72,8 +72,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("listUserAddresses returns User data and all his addresses when successful")
-    void listUserAddresses_returnsUserDataAndAllHisAddresses_WhenSuccessful() {
+    @DisplayName("listUserAddresses returns User data and list of Addresses when successful")
+    void listUserAddresses_ReturnsUserDataAndListOfAddresses_WhenSuccessful() {
         User expectedUser = UserCreator.createValidUser();
         Address expectedAddress = AddressCreator.createValidAddress();
         UserResponseBody userResponse = userService.findAllUserAddresses(expectedUser.getId());
@@ -106,8 +106,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("listUserAddresses returns User data and empty list when no address is found")
-    void listUserAddresses_returnsUserDataAndEmptyList_WhenNoAddressIsFound() {
+    @DisplayName("listUserAddresses returns User data and empty list of Addresses when no Address is found")
+    void listUserAddresses_returnsUserDataAndEmptyListOfAddresses_WhenNoAddressIsFound() {
         BDDMockito.when(userService.findAllUserAddresses(ArgumentMatchers.anyLong()))
                 .thenReturn(UserResponseBodyCreator.createValidUserResponseBodyWithEmptyList());
 
@@ -125,8 +125,8 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("save save user and return UserPostResponseBody when successful")
-    void save_SavesUserAndReturnUserPostResponseBody_WhenSuccessful() {
+    @DisplayName("save returns UserPostResponseBody when successful")
+    void save_ReturnsUserPostResponseBody_WhenSuccessful() {
         UserPostRequestBody userPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
         UserPostResponseBody userPostResponseBody = this.userService.save(userPostRequestBody);
 
@@ -135,7 +135,7 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("findByIdOrThrowResourceNotFoundException find User when successful")
+    @DisplayName("findByIdOrThrowResourceNotFoundException finds User when successful")
     void findByIdOrThrowResourceNotFoundException_FindsUser_WhenSuccessful() {
         User expectedUser = UserCreator.createValidUser();
         User foundedUser = userService.findByIdOrThrowResourceNotFoundException(expectedUser.getId());
@@ -146,7 +146,7 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("findByIdOrThrowResourceNotFoundException throw ResourceNotFoundException when no user is found")
+    @DisplayName("findByIdOrThrowResourceNotFoundException throws ResourceNotFoundException when no user is found")
     void findByIdOrThrowResourceNotFoundException_ThrowsResourceNotFoundException_WhenNoUserIsFound() {
         BDDMockito.given(userRepositoryMock.findById(ArgumentMatchers.anyLong()))
                 .willThrow(new ResourceNotFoundException("User not found"));

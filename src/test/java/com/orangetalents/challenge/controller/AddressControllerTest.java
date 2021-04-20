@@ -32,8 +32,8 @@ class AddressControllerTest {
     }
 
     @Test
-    @DisplayName("save save Address and return AddressPostResponseBody when successful")
-    void save_SavesAddressAndReturnAddressPostResponseBody_WhenSuccessful() {
+    @DisplayName("save returns AddressPostResponseBody when successful")
+    void save_ReturnsAddressPostResponseBody_WhenSuccessful() {
         AddressPostRequestBody addressPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
         AddressPostResponseBody addressPostResponseBody = this.addressController.save(addressPostRequestBody).getBody();
 
