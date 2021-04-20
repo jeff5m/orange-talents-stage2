@@ -2,6 +2,7 @@ package com.orangetalents.challenge.integration;
 
 import com.orangetalents.challenge.exception.ResourceNotFoundException;
 import com.orangetalents.challenge.exception.ValidationExceptionDetails;
+import com.orangetalents.challenge.exception.ZipCodeValidationException;
 import com.orangetalents.challenge.exception.ZipCodeValidationExceptionDetails;
 import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
 import com.orangetalents.challenge.model.requests.AddressPostResponseBody;
@@ -241,6 +242,9 @@ class AddressControllerIT {
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody())
                 .isInstanceOf(ZipCodeValidationExceptionDetails.class);
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody()).isNotNull();
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody().getDetails())
+                .isEqualTo("The entered zipCode does not exist");
     }
 
     @Test
@@ -260,13 +264,16 @@ class AddressControllerIT {
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody())
                 .isInstanceOf(ZipCodeValidationExceptionDetails.class);
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody()).isNotNull();
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody().getDetails())
+                .isEqualTo("The street name entered does not match the street name associated with this zip code");
     }
 
     @Test
     @DisplayName("save returns status code 400 and ZipCodeValidationExceptionDetails when AddressPostRequestBody has conflict in neighborhood zip code info")
     void save_ReturnsStatusCode400AndZipCodeValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInTheNeighborhoodZipCodeInfo() {
         AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
-        userPostRequestBody.setStreetName("Avenida Rondon Pacheco");
+        userPostRequestBody.setStreetName("Rua Beira Rio");
         userPostRequestBody.setZipCode("41385125");
 
         ResponseEntity<ZipCodeValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
@@ -280,14 +287,17 @@ class AddressControllerIT {
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody())
                 .isInstanceOf(ZipCodeValidationExceptionDetails.class);
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody()).isNotNull();
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody().getDetails())
+                .isEqualTo("The neighborhood entered does not match the neighborhood associated with this zip code");
     }
 
     @Test
     @DisplayName("save returns status code 400 and ZipCodeValidationExceptionDetails when AddressPostRequestBody has conflict in city zip code info")
     void save_ReturnsStatusCode400AndZipCodeValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInCityZipCodeInfo() {
         AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
-        userPostRequestBody.setStreetName("Avenida Rondon Pacheco");
-        userPostRequestBody.setNeighborhood("Tibery");
+        userPostRequestBody.setStreetName("Rua Beira Rio");
+        userPostRequestBody.setNeighborhood("Sete de Abril");
         userPostRequestBody.setZipCode("41385125");
 
         ResponseEntity<ZipCodeValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
@@ -301,15 +311,18 @@ class AddressControllerIT {
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody())
                 .isInstanceOf(ZipCodeValidationExceptionDetails.class);
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody()).isNotNull();
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody().getDetails())
+                .isEqualTo("The city entered does not match the city associated with this zip code");
     }
 
     @Test
     @DisplayName("save returns status code 400 and ZipCodeValidationExceptionDetails when AddressPostRequestBody has conflict in state zip code info")
     void save_ReturnsStatusCode400AndZipCodeValidationExceptionDetails_WhenAddressPostRequestBodyHasConflictInStateZipCodeInfo() {
         AddressPostRequestBody userPostRequestBody = AddressPostRequestBodyCreator.createValidUserPostRequestBody();
-        userPostRequestBody.setStreetName("Avenida Rondon Pacheco");
-        userPostRequestBody.setNeighborhood("Tibery");
-        userPostRequestBody.setCity("Uberlândia");
+        userPostRequestBody.setStreetName("Rua Beira Rio");
+        userPostRequestBody.setNeighborhood("Sete de Abril");
+        userPostRequestBody.setCity("Salvador");
         userPostRequestBody.setZipCode("41385125");
 
         ResponseEntity<ZipCodeValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
@@ -323,5 +336,8 @@ class AddressControllerIT {
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody())
                 .isInstanceOf(ZipCodeValidationExceptionDetails.class);
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody()).isNotNull();
+        Assertions.assertThat(addressPostResponseBodyResponseEntity.getBody().getDetails())
+                .isEqualTo("The state entered does not match the state associated with this zip code");
     }
 }
