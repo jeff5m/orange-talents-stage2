@@ -1,14 +1,22 @@
 package com.orangetalents.challenge.model.requests;
 
 public class UserPostResponseBody {
-    private final Long id;
+    private Long id;
 
     public UserPostResponseBody(Long id) {
         this.id = id;
     }
 
+    @Deprecated
+    public UserPostResponseBody() {
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

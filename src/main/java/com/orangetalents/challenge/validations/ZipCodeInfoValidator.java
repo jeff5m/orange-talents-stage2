@@ -20,7 +20,7 @@ public class ZipCodeInfoValidator {
         boolean validState = !viaCepAddress.getUf().toLowerCase(Locale.ROOT).equals(addressPostRequestBody.getState().toLowerCase(Locale.ROOT));
 
         if (viaCepAddress.getUf() == null) {
-            throw new ResourceNotFoundException("The informed zipcode does not exist");
+            throw new ResourceNotFoundException("The informed zipCode does not exist");
         } else if (validStreetName) {
             throw new ZipCodeValidationException("The street name entered does not match the street name associated with this zip code");
         } else if (validNeighborhood) {

@@ -1,13 +1,11 @@
 package com.orangetalents.challenge.feignclient;
 
-@SuppressWarnings({"squid:S1133", "squid:S1123"})
 public class ViaCepAddress {
     private final String logradouro;
     private final String bairro;
     private final String localidade;
     private final String uf;
 
-    @Deprecated
     public ViaCepAddress(String logradouro, String bairro, String localidade, String uf) {
         this.logradouro = logradouro;
         this.bairro = bairro;

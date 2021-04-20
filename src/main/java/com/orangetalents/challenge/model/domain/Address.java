@@ -18,12 +18,35 @@ public class Address {
     private String neighborhood;
     @Column(nullable = false)
     private String city;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2)
     private String state;
     @Column(nullable = false, length = 8)
     private String zipCode;
     @ManyToOne(optional = false)
     private User user;
+
+    public Address(Long id, String streetName, String addressNumber, String addOnAddress, String neighborhood, String city, String state, String zipCode, User user) {
+        this.id = id;
+        this.streetName = streetName;
+        this.addressNumber = addressNumber;
+        this.addOnAddress = addOnAddress;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.user = user;
+    }
+
+    public Address(String streetName, String addressNumber, String addOnAddress, String neighborhood, String city, String state, String zipCode, User user) {
+        this.streetName = streetName;
+        this.addressNumber = addressNumber;
+        this.addOnAddress = addOnAddress;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.user = user;
+    }
 
     @Deprecated
     public Address() {
@@ -31,10 +54,6 @@ public class Address {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getStreetName() {
