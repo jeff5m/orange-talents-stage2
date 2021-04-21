@@ -1,5 +1,10 @@
 version: '2.4'
 
+x-database-variables: &database-variables
+  SPRING_DATASOURCE_URL: jdbc:mysql://MYSQL:3306/orange_talents?createDatabaseIfNotExist=true
+  SPRING_DATASOURCE_USERNAME: jeff
+  SPRING_DATASOURCE_PASSWORD: orangetalents
+
 services:
   db:
     image: mysql
@@ -14,6 +19,18 @@ services:
     volumes:
     - orange_talents:/var/lib/mysql
     restart: always
+    mem_limit: 512mb
+
+  orang-talents:
+    image: jeff5m/orange-talents-stage2
+    ports:
+    - "8080:8080"
+    environment:
+      <<: *database-variables
+    depends_on:
+    - db
+    restart: always
+    mem_limit: 512mb
 
 volumes:
   orange_talents:
