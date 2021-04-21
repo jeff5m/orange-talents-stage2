@@ -1,10 +1,25 @@
 package com.orangetalents.challenge.feignclient;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "ZIP code info retrieved from ViaCEP API")
 public class ViaCepAddress {
 
+    @Schema(description = "This is the Address street name",
+            example = "Avenida Rondon Pacheco",
+            required = true)
     private final String logradouro;
+    @Schema(description = "This is the Address neighborhood",
+            example = "Tibery",
+            required = true)
     private final String bairro;
+    @Schema(description = "This is the Address city",
+            example = "Uberlândia",
+            required = true)
     private final String localidade;
+    @Schema(description = "This is the Address state",
+            example = "MG",
+            required = true)
     private final String uf;
 
     public ViaCepAddress(String logradouro, String bairro, String localidade, String uf) {

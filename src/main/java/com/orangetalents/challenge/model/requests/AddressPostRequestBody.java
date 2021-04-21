@@ -1,5 +1,7 @@
 package com.orangetalents.challenge.model.requests;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -8,29 +10,53 @@ import javax.validation.constraints.Pattern;
 public class AddressPostRequestBody {
 
     @NotBlank(message = "Address must have a street name")
+    @Schema(description = "This is the Address street name",
+            example = "Avenida Rondon Pacheco",
+            required = true)
     private String streetName;
 
     @NotBlank(message = "Address must have a number")
+    @Schema(description = "This is the Address number",
+            example = "4600",
+            required = true)
     private String addressNumber;
 
     @NotBlank(message = "Address must have an add-on")
+    @Schema(description = "This is the Address add-on",
+            example = "7° e 8° Andar",
+            required = true)
     private String addOnAddress;
 
     @NotBlank(message = "Address must have a neighborhood")
+    @Schema(description = "This is the Address neighborhood",
+            example = "Tibery",
+            required = true)
     private String neighborhood;
 
     @NotBlank(message = "Address must have a city")
+    @Schema(description = "This is the Address city",
+            example = "Uberlândia",
+            required = true)
     private String city;
 
     @NotBlank(message = "Address must have a state")
     @Pattern(message = "Must consist of two capital letters", regexp = "[A-Z]{2}")
+    @Schema(description = "This is the Address state",
+            example = "MG",
+            required = true)
     private String state;
 
     @NotBlank(message = "Address must have a ZIP Code")
     @Pattern(message = "ZIP Code must contain 8 numbers", regexp = "[0-9]{8}")
+    @Schema(description = "This is the Address ZIP code",
+            example = "38405142",
+            required = true)
     private String zipCode;
 
-    @NotNull(message = "The address must have an user-id")
+    @NotNull(message = "The address must have an User id")
+    @Schema(description = "This number represents the User id associated with this Address",
+            example = "1",
+            required = true)
     private Long userId;
 
 

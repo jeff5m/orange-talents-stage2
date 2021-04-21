@@ -1,13 +1,24 @@
 package com.orangetalents.challenge.model.requests;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.List;
 
 public class UserResponseBody {
 
+    @Schema(description = "This is the User id", example = "1")
     private final Long id;
+
+    @Schema(description = "This is the User name", example = "Jane Doe")
     private final String name;
+
+    @Schema(description = "This is the User email", example = "jane@email.com")
     private final String email;
+
+    @Schema(description = "This is the User cpf", example = "12345678910")
     private final String cpf;
+
+    @Schema(description = "This is the list of Addresses associated with this User")
     private final List<UserAddressesResponseBody> addresses;
 
     public UserResponseBody(Long id, String name, String email, String cpf, List<UserAddressesResponseBody> addresses) {
