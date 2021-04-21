@@ -37,7 +37,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserPostResponseBody save(@RequestBody @Valid UserPostRequestBody userPostRequestBody) {
+    public UserPostResponseBody save(UserPostRequestBody userPostRequestBody) {
         User userToBeSaved = userMapper.toUser(userPostRequestBody);
         User userSaved = userRepository.save(userToBeSaved);
         return userPostResponseBodyMapper.toUserPostResponseBody(userSaved);
