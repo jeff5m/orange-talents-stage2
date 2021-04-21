@@ -4,6 +4,7 @@ import com.orangetalents.challenge.service.UserService;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Objects;
 
 public class UniqueValidator implements ConstraintValidator<Unique, String> {
 
@@ -18,7 +19,8 @@ public class UniqueValidator implements ConstraintValidator<Unique, String> {
         if (value != null && value.contains("@")) {
             return userService.findByEmail(value).isEmpty();
         } else {
-            return userService.findByCpf(value).isEmpty();
+            String formattedCpf = Objects.requireNonNull(value).replaceAll("[\\D]", "");
+            return userService.findByCpf(formattedCpf).isEmpty();
         }
     }
 }

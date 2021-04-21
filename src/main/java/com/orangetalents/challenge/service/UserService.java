@@ -37,6 +37,9 @@ public class UserService {
     @Transactional
     public UserPostResponseBody save(UserPostRequestBody userPostRequestBody) {
         User userToBeSaved = userMapper.toUser(userPostRequestBody);
+        String cpf = userToBeSaved.getCpf();
+        String formattedCpf = cpf.replaceAll("[\\D]", "");
+        userToBeSaved.setCpf(formattedCpf);
         User userSaved = userRepository.save(userToBeSaved);
         return userPostResponseBodyMapper.toUserPostResponseBody(userSaved);
     }
