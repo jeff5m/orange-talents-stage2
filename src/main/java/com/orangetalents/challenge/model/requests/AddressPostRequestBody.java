@@ -4,25 +4,35 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+@SuppressWarnings({"squid:S1133", "squid:S1123", "squid:S1186"})
 public class AddressPostRequestBody {
+
     @NotBlank(message = "Address must have a street name")
     private String streetName;
+
     @NotBlank(message = "Address must have a number")
     private String addressNumber;
+
     @NotBlank(message = "Address must have an add-on")
     private String addOnAddress;
+
     @NotBlank(message = "Address must have a neighborhood")
     private String neighborhood;
+
     @NotBlank(message = "Address must have a city")
     private String city;
+
     @NotBlank(message = "Address must have a state")
     @Pattern(message = "Must consist of two capital letters", regexp = "[A-Z]{2}")
     private String state;
+
     @NotBlank(message = "Address must have a ZIP Code")
     @Pattern(message = "ZIP Code must contain 8 numbers", regexp = "[0-9]{8}")
     private String zipCode;
+
     @NotNull(message = "The address must have an user-id")
     private Long userId;
+
 
     public AddressPostRequestBody(@NotBlank String streetName,
                                   @NotBlank String addressNumber,
@@ -64,10 +74,6 @@ public class AddressPostRequestBody {
 
     public String getAddOnAddress() {
         return addOnAddress;
-    }
-
-    public void setAddOnAddress(String addOnAddress) {
-        this.addOnAddress = addOnAddress;
     }
 
     public String getNeighborhood() {

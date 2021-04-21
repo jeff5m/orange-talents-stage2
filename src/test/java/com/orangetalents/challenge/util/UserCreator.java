@@ -7,6 +7,7 @@ import java.time.Month;
 import java.util.Collections;
 
 public class UserCreator {
+
     public static User createValidUser() {
         return new User(
                 1L,

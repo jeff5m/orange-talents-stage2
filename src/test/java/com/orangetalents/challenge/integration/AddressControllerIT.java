@@ -2,7 +2,6 @@ package com.orangetalents.challenge.integration;
 
 import com.orangetalents.challenge.exception.ResourceNotFoundException;
 import com.orangetalents.challenge.exception.ValidationExceptionDetails;
-import com.orangetalents.challenge.exception.ZipCodeValidationException;
 import com.orangetalents.challenge.exception.ZipCodeValidationExceptionDetails;
 import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
 import com.orangetalents.challenge.model.requests.AddressPostResponseBody;

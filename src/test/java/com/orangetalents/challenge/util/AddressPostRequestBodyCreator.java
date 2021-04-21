@@ -3,6 +3,7 @@ package com.orangetalents.challenge.util;
 import com.orangetalents.challenge.model.requests.AddressPostRequestBody;
 
 public class AddressPostRequestBodyCreator {
+
     public static AddressPostRequestBody createValidUserPostRequestBody() {
         return new AddressPostRequestBody(
                 "Avenida Rondon Pacheco",

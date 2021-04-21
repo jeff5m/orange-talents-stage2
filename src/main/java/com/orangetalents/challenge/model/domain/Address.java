@@ -5,23 +5,32 @@ import javax.persistence.*;
 @Entity
 @SuppressWarnings({"squid:S1133", "squid:S1123", "squid:S1186"})
 public class Address {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String streetName;
+
     @Column(nullable = false)
     private String addressNumber;
+
     @Column(nullable = false)
     private String addOnAddress;
+
     @Column(nullable = false)
     private String neighborhood;
+
     @Column(nullable = false)
     private String city;
+
     @Column(nullable = false, length = 2)
     private String state;
+
     @Column(nullable = false, length = 8)
     private String zipCode;
+
     @ManyToOne(optional = false)
     private User user;
 

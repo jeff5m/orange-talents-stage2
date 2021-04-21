@@ -1,6 +1,8 @@
 package com.orangetalents.challenge.model.requests;
 
+@SuppressWarnings({"squid:S1133", "squid:S1123", "squid:S1186"})
 public class UserPostResponseBody {
+
     private Long id;
 
     public UserPostResponseBody(Long id) {

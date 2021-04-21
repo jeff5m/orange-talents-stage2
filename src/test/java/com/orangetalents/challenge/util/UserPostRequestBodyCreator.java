@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.Month;
 
 public class UserPostRequestBodyCreator {
+
     public static UserPostRequestBody createValidUserPostRequestBody() {
         return new UserPostRequestBody(
                 "Jane Doe",

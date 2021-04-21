@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 @SuppressWarnings("unused")
 public class ExceptionDetails {
+
     private final String title;
     private final int status;
     private final String details;

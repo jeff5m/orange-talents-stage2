@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class UserPostRequestBody {
+
     @NotBlank(message = "User must have a name")
     @Size(message = "Name length must be between 1 and 100", min = 1, max = 120)
     private String name;

@@ -4,6 +4,7 @@ import com.orangetalents.challenge.model.domain.Address;
 
 public class AddressCreator {
     public static Address createValidAddress() {
+
         return new Address(
                 1L,
                 "Avenida Rondon Pacheco",
@@ -27,19 +28,6 @@ public class AddressCreator {
                 "MG",
                 "38405142",
                 UserCreator.createValidUser()
-        );
-    }
-
-    public static Address createInvalidAddressToBeSaved() {
-        return new Address(
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
         );
     }
 }

@@ -7,5 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface UserPostResponseBodyMapper {
 
-    UserPostResponseBody toUserPostResponseBody (User user);
+    UserPostResponseBody toUserPostResponseBody(User user);
 }

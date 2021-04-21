@@ -3,6 +3,7 @@ package com.orangetalents.challenge.model.requests;
 import java.util.List;
 
 public class UserResponseBody {
+
     private final Long id;
     private final String name;
     private final String email;

@@ -8,17 +8,23 @@ import java.util.List;
 @Entity
 @SuppressWarnings({"squid:S1133", "squid:S1123", "squid:S1186"})
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 120)
     private String name;
+
     @Column(nullable = false, length = 60, unique = true)
     private String email;
+
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
+
     @Column(nullable = false)
     private LocalDate birthDate;
+
     @OneToMany(mappedBy = "user")
     private List<Address> addresses;
 

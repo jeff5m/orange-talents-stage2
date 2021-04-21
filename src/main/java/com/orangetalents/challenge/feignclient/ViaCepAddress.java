@@ -1,6 +1,7 @@
 package com.orangetalents.challenge.feignclient;
 
 public class ViaCepAddress {
+
     private final String logradouro;
     private final String bairro;
     private final String localidade;

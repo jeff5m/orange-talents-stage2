@@ -2,6 +2,7 @@ package com.orangetalents.challenge.model.requests;
 
 @SuppressWarnings("unused")
 public class UserAddressesResponseBody {
+
     private final Long id;
     private final String streetName;
     private final String addressNumber;
