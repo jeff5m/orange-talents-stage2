@@ -10,10 +10,8 @@ import com.orangetalents.challenge.model.requests.UserPostResponseBody;
 import com.orangetalents.challenge.model.requests.UserResponseBody;
 import com.orangetalents.challenge.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.util.Optional;
 
 @Service

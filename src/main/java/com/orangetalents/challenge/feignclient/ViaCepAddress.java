@@ -9,14 +9,17 @@ public class ViaCepAddress {
             example = "Avenida Rondon Pacheco",
             required = true)
     private final String logradouro;
+
     @Schema(description = "This is the Address neighborhood",
             example = "Tibery",
             required = true)
     private final String bairro;
+
     @Schema(description = "This is the Address city",
             example = "Uberlândia",
             required = true)
     private final String localidade;
+
     @Schema(description = "This is the Address state",
             example = "MG",
             required = true)
