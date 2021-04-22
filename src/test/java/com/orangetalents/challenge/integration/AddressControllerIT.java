@@ -39,7 +39,7 @@ class AddressControllerIT {
     @DisplayName("save returns status code 201 and AddressPostResponseBody when successful")
     void save_ReturnsAddressPostResponseBody_WhenSuccessful() {
         ResponseEntity<AddressPostResponseBody> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 AddressPostRequestBodyCreator.createValidUserPostRequestBody(),
                 AddressPostResponseBody.class);
         AddressPostResponseBody addressPostResponseBody = addressPostResponseBodyResponseEntity.getBody();
@@ -60,7 +60,7 @@ class AddressControllerIT {
         userPostRequestBody.setStreetName("");
 
         ResponseEntity<ValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ValidationExceptionDetails.class);
 
@@ -79,7 +79,7 @@ class AddressControllerIT {
         userPostRequestBody.setAddressNumber("");
 
         ResponseEntity<ValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ValidationExceptionDetails.class);
 
@@ -98,7 +98,7 @@ class AddressControllerIT {
         userPostRequestBody.setNeighborhood("");
 
         ResponseEntity<ValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ValidationExceptionDetails.class);
 
@@ -117,7 +117,7 @@ class AddressControllerIT {
         userPostRequestBody.setCity("");
 
         ResponseEntity<ValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ValidationExceptionDetails.class);
 
@@ -136,7 +136,7 @@ class AddressControllerIT {
         userPostRequestBody.setState("");
 
         ResponseEntity<ValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ValidationExceptionDetails.class);
 
@@ -155,7 +155,7 @@ class AddressControllerIT {
         userPostRequestBody.setState("mgg");
 
         ResponseEntity<ValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ValidationExceptionDetails.class);
 
@@ -174,7 +174,7 @@ class AddressControllerIT {
         userPostRequestBody.setZipCode("");
 
         ResponseEntity<ValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ValidationExceptionDetails.class);
 
@@ -193,7 +193,7 @@ class AddressControllerIT {
         userPostRequestBody.setUserId(null);
 
         ResponseEntity<ValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ValidationExceptionDetails.class);
 
@@ -212,7 +212,7 @@ class AddressControllerIT {
         userPostRequestBody.setUserId(null);
 
         ResponseEntity<ResourceNotFoundException> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ResourceNotFoundException.class);
 
@@ -231,7 +231,7 @@ class AddressControllerIT {
         userPostRequestBody.setZipCode("00000000");
 
         ResponseEntity<ZipCodeValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ZipCodeValidationExceptionDetails.class);
 
@@ -253,7 +253,7 @@ class AddressControllerIT {
         userPostRequestBody.setZipCode("41385125");
 
         ResponseEntity<ZipCodeValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ZipCodeValidationExceptionDetails.class);
 
@@ -276,7 +276,7 @@ class AddressControllerIT {
         userPostRequestBody.setZipCode("41385125");
 
         ResponseEntity<ZipCodeValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ZipCodeValidationExceptionDetails.class);
 
@@ -300,7 +300,7 @@ class AddressControllerIT {
         userPostRequestBody.setZipCode("41385125");
 
         ResponseEntity<ZipCodeValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ZipCodeValidationExceptionDetails.class);
 
@@ -325,7 +325,7 @@ class AddressControllerIT {
         userPostRequestBody.setZipCode("41385125");
 
         ResponseEntity<ZipCodeValidationExceptionDetails> addressPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
-                "/address",
+                "/addresses",
                 userPostRequestBody,
                 ZipCodeValidationExceptionDetails.class);
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("address")
+@RequestMapping("addresses")
 public class AddressController {
 
     private final AddressService addressService;
