@@ -171,4 +171,18 @@ public class AddressPostRequestBody {
         result = 31 * result + userId.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "AddressPostRequestBody{" +
+                "streetName='" + streetName + '\'' +
+                ", addressNumber='" + addressNumber + '\'' +
+                ", addOnAddress='" + addOnAddress + '\'' +
+                ", neighborhood='" + neighborhood + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 }
