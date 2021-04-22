@@ -1,6 +1,6 @@
 package com.orangetalents.challenge.integration;
 
-import com.orangetalents.challenge.exception.ResourceNotFoundException;
+import com.orangetalents.challenge.exception.ResourceNotFoundExceptionDetails;
 import com.orangetalents.challenge.exception.ValidationExceptionDetails;
 import com.orangetalents.challenge.model.domain.Address;
 import com.orangetalents.challenge.model.domain.User;
@@ -132,7 +132,6 @@ class UserControllerIT {
 
         Assertions.assertThat(userPostResponseBody).isNotNull();
         Assertions.assertThat(userPostResponseBody.getId()).isNotNull();
-
     }
 
     @Test
@@ -151,14 +150,19 @@ class UserControllerIT {
                 .isNotNull()
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isNotNull()
                 .isInstanceOf(ValidationExceptionDetails.class);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody().getFieldsMessage())
+                .isNotNull()
+                .contains("Name length must be between 1 and 100")
+                .contains("User must have a name");
     }
 
     @Test
     @DisplayName("save returns status code 400 and ValidationExceptionDetails when UserPostRequestBody has invalid cpf")
     void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenUserPostRequestBodyHasInvalidCpf() {
         UserPostRequestBody validUserPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
-        validUserPostRequestBody.setCpf("111111111");
+        validUserPostRequestBody.setCpf("11111");
 
         ResponseEntity<ValidationExceptionDetails> userPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
                 "/users",
@@ -170,9 +174,12 @@ class UserControllerIT {
                 .isNotNull()
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isNotNull()
                 .isInstanceOf(ValidationExceptionDetails.class);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody().getFieldsMessage())
+                .isNotNull()
+                .contains("Invalid cpf format");
     }
-
     @Test
     @DisplayName("save returns status code 400 and ValidationExceptionDetails when UserPostRequestBody has an already registered cpf")
     void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenUserPostRequestBodyHasAnAlreadyRegisteredCpf() {
@@ -190,14 +197,18 @@ class UserControllerIT {
                 .isNotNull()
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isNotNull()
                 .isInstanceOf(ValidationExceptionDetails.class);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody().getFieldsMessage())
+                .isNotNull()
+                .contains("There is already an registered User with this cpf");
     }
 
     @Test
     @DisplayName("save returns status code 400 and ValidationExceptionDetails when UserPostRequestBody has invalid email")
     void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenUserPostRequestBodyHasInvalidEmail() {
         UserPostRequestBody validUserPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
-        validUserPostRequestBody.setEmail("asdf");
+        validUserPostRequestBody.setEmail("invalid.com");
 
         ResponseEntity<ValidationExceptionDetails> userPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
                 "/users",
@@ -209,7 +220,11 @@ class UserControllerIT {
                 .isNotNull()
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isNotNull()
                 .isInstanceOf(ValidationExceptionDetails.class);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody().getFieldsMessage())
+                .isNotNull()
+                .contains("Invalid email format");
     }
 
     @Test
@@ -229,12 +244,39 @@ class UserControllerIT {
                 .isNotNull()
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isNotNull()
                 .isInstanceOf(ValidationExceptionDetails.class);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody().getFieldsMessage())
+                .isNotNull()
+                .contains("There is already an registered User with this email");
     }
 
     @Test
     @DisplayName("save returns status code 400 and ValidationExceptionDetails when UserPostRequestBody has invalid birthdate")
     void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenUserPostRequestBodyHasInvalidBirthdate() {
+        UserPostRequestBody validUserPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
+        validUserPostRequestBody.setBirthDate(null);
+
+        ResponseEntity<ValidationExceptionDetails> userPostResponseBodyResponseEntity = testRestTemplate.postForEntity(
+                "/users",
+                validUserPostRequestBody,
+                ValidationExceptionDetails.class);
+
+        Assertions.assertThat(userPostResponseBodyResponseEntity).isNotNull();
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getStatusCode())
+                .isNotNull()
+                .isEqualTo(HttpStatus.BAD_REQUEST);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isNotNull()
+                .isInstanceOf(ValidationExceptionDetails.class);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody().getFieldsMessage())
+                .isNotNull()
+                .contains("User must have a birthdate");
+    }
+
+    @Test
+    @DisplayName("save returns status code 400 and ValidationExceptionDetails when UserPostRequestBody has future birthdate")
+    void save_ReturnsStatusCode400AndValidationExceptionDetails_WhenUserPostRequestBodyHasFutureBirthdate() {
         UserPostRequestBody validUserPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
         validUserPostRequestBody.setBirthDate(LocalDate.of(2050, Month.JANUARY, 31));
 
@@ -248,23 +290,32 @@ class UserControllerIT {
                 .isNotNull()
                 .isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(userPostResponseBodyResponseEntity.getBody())
+                .isNotNull()
                 .isInstanceOf(ValidationExceptionDetails.class);
+        Assertions.assertThat(userPostResponseBodyResponseEntity.getBody().getFieldsMessage())
+                .isNotNull()
+                .contains("Birthdate cannot be a future date");
     }
 
     @Test
     @DisplayName("listUserAddresses returns status code 404 and ResourceNotFoundException when no user is found")
     void listUserAddresses_ReturnsStatusCode404AndResourceNotFoundException_WhenNoUserIsFound() {
         String url = String.format("/users/%d/addresses", 1L);
-        ResponseEntity<ResourceNotFoundException> userResponseBodyResponseEntity = testRestTemplate.exchange(
+        ResponseEntity<ResourceNotFoundExceptionDetails> userResponseBodyResponseEntity = testRestTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                ResourceNotFoundException.class);
+                ResourceNotFoundExceptionDetails.class);
 
         Assertions.assertThat(userResponseBodyResponseEntity).isNotNull();
         Assertions.assertThat(userResponseBodyResponseEntity.getStatusCode())
                 .isNotNull()
                 .isEqualTo(HttpStatus.NOT_FOUND);
-        Assertions.assertThat(userResponseBodyResponseEntity.getBody()).isInstanceOf(ResourceNotFoundException.class);
+        Assertions.assertThat(userResponseBodyResponseEntity.getBody())
+                .isNotNull()
+                .isInstanceOf(ResourceNotFoundExceptionDetails.class);
+        Assertions.assertThat(userResponseBodyResponseEntity.getBody().getDetails())
+                .isNotNull()
+                .contains("User not found");
     }
 }

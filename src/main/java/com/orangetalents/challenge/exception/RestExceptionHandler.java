@@ -13,14 +13,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ExceptionDetails> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
-        return new ResponseEntity<>(new ExceptionDetails(
+    public ResponseEntity<ResourceNotFoundExceptionDetails> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
+        return new ResponseEntity<>(new ResourceNotFoundExceptionDetails(
                 "Resource Not Found Exception, the resource could not be found",
                 HttpStatus.NOT_FOUND.value(),
                 resourceNotFoundException.getMessage(),
@@ -41,7 +42,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-        String fields = fieldErrors.stream().map(FieldError::getField).collect(Collectors.joining(", "));
+        Set<String> fields = fieldErrors.stream().map(FieldError::getField).collect(Collectors.toSet());
         String fieldsMessage = fieldErrors.stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(", "));
 
         return new ResponseEntity<>(new ValidationExceptionDetails(
@@ -49,7 +50,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.BAD_REQUEST.value(),
                 "Check field(s) error",
                 LocalDateTime.now(),
-                fields,
+                String.join(", ", fields),
                 fieldsMessage), HttpStatus.BAD_REQUEST
         );
     }
