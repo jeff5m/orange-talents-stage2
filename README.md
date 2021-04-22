@@ -1,6 +1,6 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jeff5m/orange-talents-stage2/build-and-test) 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jeff5m/orange-talents-stage2/build-and-test)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/jeff5m/orange-talents-stage2)
-# Desafio Técnico da segunda fase do programa Orange Talents
+# Desafio Orange Talents
 ## 💬️ Contexto
 Você está fazendo uma API REST que precisará controlar endereços de usuários.
 
@@ -52,7 +52,7 @@ Navegue pelo terminal até a pasta raiz do projeto e execute o comando:
 ./mvnw test -P all-tests
 ```
 
-## ✅ Executando o projeto 
+## ✅ Executando o projeto
 
 ### 1. 🐋 Utilizando docker
 Navegue pelo terminal até a pasta raiz do projeto e execute o comando:
@@ -75,11 +75,3 @@ A documentação da API, com a descrição de cada endpoint e seus possiveis ret
 ```sh
 http://localhost:8080/swagger-ui.html
 ```
-
-## 🔧 Desenvolvimento
-Tecnologias em uso no projeto:
-
-* ☕️ **Java 11**
-* 🌱 **Spring (Boot, Data JPA)**
-* 🐋 **Docker**
-* 📄 **Swagger**
