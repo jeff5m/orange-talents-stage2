@@ -27,11 +27,11 @@ Por fim, criar um endpoint que retornará um usuário com a lista de todos seus 
 Todos os endpoints são precedidos de `http://localhost:8080/`
 
 #### User
-- /user `POST`
+- /users `POST`
 - /users/{id}/addresses `GET`
 
 #### Address
-- /address `POST`
+- /addresses `POST`
 
 ## 🧪 Testando a aplicação
 Existem três `profiles` para testes:
@@ -55,13 +55,7 @@ Navegue pelo terminal até a pasta raiz do projeto e execute o comando:
 ## ✅ Executando o projeto 
 
 ### 1. 🐋 Utilizando docker
-Primeiro é necessário criar os volumes para persistência dos dados. Navegue pelo terminal até a pasta raiz do projeto e 
-execute o 
-comando:
-```sh
-docker-compose up -d
-```
-Depois:
+Navegue pelo terminal até a pasta raiz do projeto e execute o comando:
 ```sh
 docker-compose up
 ```
