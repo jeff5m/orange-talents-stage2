@@ -50,7 +50,7 @@ class UserServiceTest {
 
         // save method
         BDDMockito.when(userMapperMock.toUser(ArgumentMatchers.any()))
-                .thenReturn(UserCreator.createInvalidUserToBeSaved());
+                .thenReturn(UserCreator.createValidUserToBeSaved());
 
         BDDMockito.when(userRepositoryMock.save(ArgumentMatchers.any()))
                 .thenReturn(UserCreator.createValidUser());
@@ -128,6 +128,7 @@ class UserServiceTest {
     @DisplayName("save returns UserPostResponseBody when successful")
     void save_ReturnsUserPostResponseBody_WhenSuccessful() {
         UserPostRequestBody userPostRequestBody = UserPostRequestBodyCreator.createValidUserPostRequestBody();
+        userPostRequestBody.setCpf("093.984.700-04");
         UserPostResponseBody userPostResponseBody = this.userService.save(userPostRequestBody);
 
         Assertions.assertThat(userPostResponseBody).isNotNull();
